@@ -6,6 +6,7 @@ import { Loading } from "./src/components/Loading";
 
 import {THEME} from './src/styles/theme';
 
+
 export default function App() {
   const [fontsLoaded] = useFonts({Roboto_400Regular,Roboto_500Medium,Roboto_700Bold})
 
@@ -20,6 +21,7 @@ export default function App() {
         />
 
         {fontsLoaded ? <SignIn />: <Loading />}
+
     </NativeBaseProvider>
   );
 }
