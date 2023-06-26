@@ -1,8 +1,12 @@
-import { createContext } from "react";
+import { ReactNode, createContext } from "react";
 
 interface UserProps {
     name: string;
     avatarUrl: string;
+}
+
+interface IAuthProviderPros {
+    children: ReactNode;
 }
 
 export interface IAuthContextDataProps {
@@ -12,10 +16,10 @@ export interface IAuthContextDataProps {
 
 export const AuthContext = createContext({} as IAuthContextDataProps);
 
-export function AuthContextProvider({ children }) {
+export function AuthContextProvider({ children }: IAuthProviderPros) {
 
     async function signIn() {
-
+        console.log('Logou com sucesso')
     }
 
     return(
