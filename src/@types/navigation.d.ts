@@ -5,7 +5,7 @@ export declare globaç {
             pools:undefined;
             find: undefined;
             details: {
-                
+                id: string;
             }
         }
     }
