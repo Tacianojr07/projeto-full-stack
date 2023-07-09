@@ -1,4 +1,4 @@
-export declare globaç {
+export declare global {
     namespace ReactNavigation {
         interface RootParamsList {
             new: undefined;
