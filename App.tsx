@@ -1,12 +1,13 @@
 import { NativeBaseProvider,VStack,Text, StatusBar} from "native-base";
 import {useFonts, Roboto_400Regular,Roboto_500Medium, Roboto_700Bold} from "@expo-google-fonts/roboto"
 
-import { SignIn } from "./src/screens/Signin";
+import { Routes } from "./src/routes/index";
 import { Loading } from "./src/components/Loading";
 
 import { AuthContextProvider } from "./src/contexts/AuthContext";
 
 import {THEME} from './src/styles/theme';
+
 
 
 
@@ -24,7 +25,7 @@ export default function App() {
         translucent
         />
       
-        {fontsLoaded ? <SignIn />: <Loading />}
+        {fontsLoaded ? <Routes />: <Loading />}
       </AuthContextProvider>
     </NativeBaseProvider>
   );
