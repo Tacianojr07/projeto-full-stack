@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { New } from "../screens/New";
 import { Pools } from "../screens/Pools";
+import { Find } from "../screens/Find";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -45,8 +46,14 @@ export function AppRoutes() {
         component={Pools}
         options={{
           tabBarIcon: ({ color }) => <SoccerBall color={color} size={size} />,
-          tabBarLabel: "Novo Bolão",
+          tabBarLabel: "Meus Bolões",
         }}
+      />
+
+      <Screen 
+      name="find"
+      component={Find}
+      options={{ tabBarButton: () => null}}
       />
     </Navigator>
   );
