@@ -4,7 +4,7 @@ import { Pools } from '../screens/Pools';
 
 const { Navigator, Screen} = createBottomTabNavigator();
 
-export function appRoutes() {
+export function AppRoutes() {
     return(
         <Navigator>
             <Screen 
