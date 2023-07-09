@@ -7,7 +7,6 @@ import { Loading } from "./src/components/Loading";
 import { AuthContextProvider } from "./src/contexts/AuthContext";
 
 import {THEME} from './src/styles/theme';
-import { Find } from "./src/screens/Find";
 
 
 
@@ -25,7 +24,7 @@ export default function App() {
         translucent
         />
       
-        {fontsLoaded ? <Find />: <Loading />}
+        {fontsLoaded ? <SignIn />: <Loading />}
       </AuthContextProvider>
     </NativeBaseProvider>
   );

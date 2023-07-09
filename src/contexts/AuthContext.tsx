@@ -34,13 +34,17 @@ export function AuthContextProvider({ children }: IAuthProviderProps) {
   });
 
 
-
+  useEffect(() => {
+    if (response?.type === "success" && response?.authentication?.accessToken) {
+      signInWithGoogle(response.authentication.accessToken);
+    }
+  }, [response]);
 
   async function signIn() {
     try {
       setIsUserLoading(true);
       await promptAsync();
-
+      
     } catch (error) {
       console.log(error);
       throw error;
@@ -49,17 +53,12 @@ export function AuthContextProvider({ children }: IAuthProviderProps) {
     }
   }
 
-  async function signInWithGoogle(access_Token: string) {
-    console.log("TOKEN DE AUTENTICAÇÃO ==> ", access_Token);
+
+
+  async function signInWithGoogle(accessToken: string) {
+    console.log("TOKEN DE AUTENTICAÇÃO ==> ", accessToken);
   
   }
-
-  useEffect(() => {
-    if (response?.type === "success" && response?.authentication?.accessToken) {
-      signInWithGoogle(response.authentication.accessToken);
-    }
-  }, [response]);
-
 
 
 
