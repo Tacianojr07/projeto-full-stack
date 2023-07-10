@@ -26,7 +26,7 @@ export function New() {
     try {
       setLoading(true);
 
-      await api.post('/pools', {title: title})
+      await api.post('/pool', {title: title})
     
        toast.show({
         title: "bolão criado com sucesso",
@@ -68,9 +68,10 @@ export function New() {
           placeholder="Qual nome do seu bolão"
           onChangeText={setTitle}
           value={title}
+          color="white"
         />
 
-        <Button title="CRIAR MEU BOLÃO" isLoading={isLoading} />
+        <Button title="CRIAR MEU BOLÃO" isLoading={isLoading} onPress={handlePoolCreate} />
         <Text color="gray.200" fontSize="sm" textAlign="center" px={10} mt={4}>
           Após criar seu bolão, você receberá um código único que poderá usar
           para convidar outras pessoas
