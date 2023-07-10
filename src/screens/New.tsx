@@ -1,9 +1,12 @@
 import { useState } from "react";
 
+import { api } from "../services/api";
+
 import { Heading, VStack, Input, Text, useToast } from "native-base";
 import { Header } from "../components/Header";
 import Logo from "../assets/logo.svg";
 import { Button } from "../components/Button";
+
 
 export function New() {
   const [title, setTitle] = useState("");
@@ -22,12 +25,26 @@ export function New() {
 
     try {
       setLoading(true);
+
+      await api.post('/pools', {title: title})
+    
+       toast.show({
+        title: "bolão criado com sucesso",
+        placement: "top",
+        bgColor: "green.500",
+      });
+
+      setTitle('');
+
+
     } catch (error) {
       toast.show({
-        title: "Informe um nome para o bolão",
+        title: "não foi possível criar seu bolão",
         placement: "top",
         bgColor: "red.500",
       });
+    } finally {
+        setLoading(false)
     }
   }
 
