@@ -1,4 +1,4 @@
-import { VStack, Icon, useToast } from "native-base";
+import { VStack, Icon, useToast, FlatList } from "native-base";
 import {Octicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native'
 import { useEffect, useState } from "react";
@@ -7,14 +7,14 @@ import { api } from "../services/api";
 
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
-import { PoolCard } from "../components/PoolCard";
+import { PoolCard, PoolCardProps } from "../components/PoolCard";
 import {Loading} from '../components/Loading'
 
 
 
 export function Pools() {
   const [isLoading, setIsLoading] = useState(true);
-  const [pools, setPools] = useState([]);
+  const [pools, setPools] = useState<PoolCardProps[]>([]);
 
   const toast = useToast();
   const {navigate} = useNavigation();
@@ -53,7 +53,13 @@ export function Pools() {
         />
       </VStack>
 
-      <Loading />
+      <FlatList 
+      data={pools}
+      keyExtractor={item => item.id}
+      renderItem={ ( { item } ) => <PoolCard data={item}/>}
+      showsHorizontalScrollIndicator={false}
+      _contentContainerStyle={{pb: 10}}
+      />
     </VStack>
   );
 }
