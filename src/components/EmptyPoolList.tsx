@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export function EmptyPoolList() {
   const {navigate} = useNavigation()
-  
+
   return (
     <Row flexWrap="wrap" justifyContent="center">
       <Text color="white" fontSize="md" textAlign="center">
@@ -20,7 +20,7 @@ export function EmptyPoolList() {
         ou
       </Text>
 
-      <Pressable>
+      <Pressable onPress={() => navigate('new')}>
         <Text textDecorationLine="underline"  color="yellow.500">
           criar um novo
         </Text>

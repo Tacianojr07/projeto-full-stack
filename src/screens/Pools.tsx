@@ -55,12 +55,13 @@ export function Pools() {
       </VStack>
 
       <FlatList 
-      data={pools}
+      data={[]}
       keyExtractor={item => item.id}
       renderItem={ ( { item } ) => <PoolCard data={item}/>}
       showsHorizontalScrollIndicator={false}
       _contentContainerStyle={{pb: 10}}
       ListEmptyComponent={()=> <EmptyPoolList />} 
+
       />
     </VStack>
   );
