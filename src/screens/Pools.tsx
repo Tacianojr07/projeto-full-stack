@@ -1,7 +1,7 @@
-import { VStack, Icon } from "native-base";
+import { VStack, Icon, useToast } from "native-base";
 import {Octicons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { api } from "../services/api";
 
@@ -13,14 +13,28 @@ import {Loading} from '../components/Loading'
 
 
 export function Pools() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [pools, setPools] = useState([]);
+
+  const toast = useToast();
   const {navigate} = useNavigation();
 
   async function fetchPools() {
     try {
+      setIsLoading(true)
       const response = await api.get('/pools')
       console.log(response.data)
     } catch (error) {
-      
+      console.log(error)
+
+      toast.show({
+        title: 'não foi posível carregar os bolões',
+        placement: 'top',
+        bgColor: 'red.500'
+
+      })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -38,6 +52,8 @@ export function Pools() {
         onPress={() => navigate('find')}
         />
       </VStack>
+
+      <Loading />
     </VStack>
   );
 }
