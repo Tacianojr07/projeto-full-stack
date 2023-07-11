@@ -24,7 +24,7 @@ export function Pools() {
     try {
       setIsLoading(true)
       const response = await api.get('/pools')
-      console.log(response.data)
+      setPools(response.data.pools)
     } catch (error) {
       console.log(error)
 
@@ -54,15 +54,17 @@ export function Pools() {
         />
       </VStack>
 
+{      
+      isLoading ? <Loading /> : 
       <FlatList 
-      data={[]}
+      data={pools}
       keyExtractor={item => item.id}
       renderItem={ ( { item } ) => <PoolCard data={item}/>}
       showsHorizontalScrollIndicator={false}
       _contentContainerStyle={{pb: 10}}
       ListEmptyComponent={()=> <EmptyPoolList />} 
-
-      />
+      px={5}
+      />}
     </VStack>
   );
 }
