@@ -1,7 +1,7 @@
 import { VStack, Icon, useToast, FlatList } from "native-base";
 import {Octicons} from '@expo/vector-icons';
-import {useNavigation} from '@react-navigation/native'
-import { useEffect, useState } from "react";
+import {useNavigation, useFocusEffect} from '@react-navigation/native'
+import { useCallback, useState } from "react";
 
 import { api } from "../services/api";
 
@@ -39,9 +39,11 @@ export function Pools() {
     }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     fetchPools()
-  },[] )
+  },[]))
+
+
   return (
     <VStack flex={1} bgColor="gray.900">
         <Header title="Meus bolões" />
