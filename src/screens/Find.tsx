@@ -1,26 +1,53 @@
-import { Heading, VStack,Input, Text, useToast } from "native-base";
-import {Header} from '../components/Header';
-import Logo from '../assets/logo.svg';
-import { Button } from "../components/Button";
-import { api } from "../services/api";
 import { useState } from "react";
+import { Heading, VStack,Input, Text, useToast } from "native-base";
+
+import { api } from "../services/api";
+
+import {Header} from '../components/Header';
+import { Button } from "../components/Button";
+
+
+
 
 
 export function Find() {
     const [isLoading,setIsLoading] = useState(false);
+    const [code, setCode] = useState('');   
+
     const toast = useToast();   
 
 
     async function handlePoolJoin() {
         try {
+
+
             setIsLoading(true)
-            const response = await api.get(`/pool/${isPool}`)
+            
+            if (!code.trim()) {
+                return toast.show({
+                    title: 'Informe o código do bolão',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
+            }
+
+
+
         } catch (error) {
             console.log(error)
 
             if(error.response?.data?.message === 'Pool not found') { {
-                toast.show({
+               return toast.show({
                     title: 'Não foi possível encontrar o bolão',
+                    placement: 'top',
+                    bgColor: 'red.500'
+                })
+            }
+
+            }
+            if(error.response?.data?.message === 'You alrealdy joined this pool') { {
+               return toast.show({
+                    title: 'Você já está no bolão',
                     placement: 'top',
                     bgColor: 'red.500'
                 })
@@ -48,6 +75,8 @@ export function Find() {
                 mb={2}
                 placeholder="Qual o código do bolão"
                 color="white"
+                autoCapitalize="characters"
+                onChangeText={setCode}
                 />
 
                 <Button 
