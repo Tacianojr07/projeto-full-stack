@@ -3,7 +3,7 @@ import { Row, Text, Pressable } from 'native-base';
 export function EmptyPoolList() {
   return (
     <Row flexWrap="wrap" justifyContent="center">
-      <Text color="white" fontSize="sm" textAlign="center">
+      <Text color="white" fontSize="md" textAlign="center">
         Você ainda não está participando de {'\n'} nenhum bolão, que tal
       </Text>
 
