@@ -34,13 +34,15 @@ export function Find() {
             }
 
             await api.post('/pools/join' , {code: code})
-            navigate('pools')
+            
 
             toast.show({
                 title: "Você se juntou ao bolão",
                 placement: "top",
                 bgColor: "green.500",
               });
+
+              navigate('pools')
 
         } catch (error) {
             console.log(error)
