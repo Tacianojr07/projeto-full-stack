@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Heading, VStack,Input, Text, useToast } from "native-base";
 
 import { api } from "../services/api";
@@ -14,7 +15,8 @@ export function Find() {
     const [isLoading,setIsLoading] = useState(false);
     const [code, setCode] = useState('');   
 
-    const toast = useToast();   
+    const toast = useToast(); 
+    const {navigate} = useNavigation();  
 
 
     async function handlePoolJoin() {
@@ -31,11 +33,13 @@ export function Find() {
                 })
             }
 
-
+            await api.post('/pools/join' , {code: code})
+            navigate('pools')
 
         } catch (error) {
             console.log(error)
 
+            setIsLoading(false)
             if(error.response?.data?.message === 'Pool not found') { {
                return toast.show({
                     title: 'Não foi possível encontrar o bolão',
@@ -55,8 +59,6 @@ export function Find() {
 
             }
        
-        } finally {
-            setIsLoading(false)
         }
     }
     return(
