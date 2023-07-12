@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { VStack, useToast } from  'native-base';
 import { useRoute } from '@react-navigation/native';
@@ -7,6 +7,9 @@ import { api } from '../services/api';
 
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
+import { PoolCardProps } from '../components/PoolCard';
+import { PoolHeader } from '../components/PoolHeader';
+import { EmptyMyPoolList } from '../components/EmptyMyPoolList';
 
 
 interface RouteParams {
@@ -14,7 +17,9 @@ interface RouteParams {
 }
 
 export function Details() {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [poolDetails,setPoolDetails] = useState<PoolCardProps>({} as PoolCardProps)
+
     const toast = useToast();
 
     const route = useRoute();
@@ -25,7 +30,7 @@ export function Details() {
             setIsLoading(true);
 
             const response = await api.get(`/pools/${id}`);
-            console.log(response.data);
+            console.log(response.data.pool.participants);
 
 
         } catch (error) {
@@ -36,20 +41,33 @@ export function Details() {
                 bgColor: 'red.500'
             });
 
-
-
-            throw error
         } finally {
             setIsLoading(false);
         }
     }
 
+    useEffect( () => {
+        fetchPoolDetails()
+    }, [id])
+
     if(isLoading) {
-        return <Loading />
+        return (
+            <Loading />
+        )
     }
     return(
         <VStack flex={1} bgColor="gray.900">
             <Header title={  id } showBackButton showShareButton/>
+            
+
+            {
+                poolDetails._count?.participants > 0 ? 
+                <VStack px={5} flex={1}>
+                    <PoolHeader data={poolDetails} />
+                </VStack>
+
+                : <EmptyMyPoolList code={poolDetails.code}/>
+            }
         </VStack>
     );
 }
