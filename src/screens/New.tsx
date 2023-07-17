@@ -26,7 +26,7 @@ export function New() {
     try {
       setLoading(true);
 
-      await api.post('/pool', {title: title})
+      await api.post('/pool', {title: title.toUpperCase()})
     
        toast.show({
         title: "bolão criado com sucesso",
