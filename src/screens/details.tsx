@@ -18,7 +18,7 @@ interface RouteParams {
 }
 
 export function Details() {
-    const [optionSelected, setOptionSelected] = useState<'guesses' | 'Ranking'>('guesses');
+    const [optionSelected, setOptionSelected] = useState<'guesses' | 'ranking'>('guesses');
     const [isLoading, setIsLoading] = useState(true);
     const [poolDetails,setPoolDetails] = useState<PoolCardProps>({} as PoolCardProps)
 
@@ -32,7 +32,7 @@ export function Details() {
             setIsLoading(true);
 
             const response = await api.get(`/pools/${id}`);
-            console.log(response.data.pool.participants);
+            setPoolDetails(response.data.pool);
 
 
         } catch (error) {
@@ -59,23 +59,27 @@ export function Details() {
     }
     return(
         <VStack flex={1} bgColor="gray.900">
-            <Header title={  id } showBackButton showShareButton/>
+            <Header title={  poolDetails.title } showBackButton showShareButton/>
             
 
             {
-                poolDetails._count?.participants >= 0 ? 
+                poolDetails._count?.participants > 0 ? 
                 <VStack px={5} flex={1}>
                     <PoolHeader data={poolDetails} />
 
                     <HStack bgColor="gray.800" p={1} rounded="sm" mb={5}>
                         <Option
                          title='Seus Palpites' 
-                          isSelected={false}/>
-                          onPress={()=> setOptionSelected('Ranking')}
+                          isSelected={optionSelected === 'guesses'}
+                          onPress={()=> setOptionSelected('guesses')}
+                          />
+                          
                         <Option 
-                        title=' Ranking do grupo' 
-                         isSelected={false}/>
-                         onPress{() => setOptionSelected('guesses')}
+                        title= 'ranking do grupo' 
+                         isSelected={optionSelected === 'ranking'}
+                         onPress={() => setOptionSelected('ranking')}
+                         />
+                         
                     </HStack>
                 </VStack>
                 
