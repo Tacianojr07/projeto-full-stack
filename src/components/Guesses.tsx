@@ -3,6 +3,8 @@ import { useState,useEffect } from 'react';
 
 import { api } from '../services/api';
 
+import { Game,GameProps } from './Game';
+
 interface Props {
   poolId: string;
 }
@@ -19,8 +21,8 @@ export function Guesses({ poolId }: Props) {
 
       setIsLoading(true)
       const response = await api.get(`/pools/${poolId}/games`)
-      console.log(response.data)
-      
+      console.log(response.data.games)
+
     } catch (error) {
       console.log(error);
       toast.show({
@@ -33,6 +35,10 @@ export function Guesses({ poolId }: Props) {
       setIsLoading(false);
   }
   }
+
+  useEffect(()=> {
+    fetchGames();
+  }, [poolId] )
 
   return (
     <Box>
