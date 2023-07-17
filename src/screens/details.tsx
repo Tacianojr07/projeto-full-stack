@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Share } from 'react-native/Libraries/Share/Share';
 
 import { HStack, VStack, useToast } from  'native-base';
 import { useRoute } from '@react-navigation/native';
@@ -48,6 +49,12 @@ export function Details() {
         }
     }
 
+    async function handleCodeShare() {
+        await Share.share({
+            message: poolDetails.code
+        })
+    }
+
     useEffect( () => {
         fetchPoolDetails()
     }, [id])
@@ -59,7 +66,7 @@ export function Details() {
     }
     return(
         <VStack flex={1} bgColor="gray.900">
-            <Header title={  poolDetails.title } showBackButton showShareButton/>
+            <Header title={  poolDetails.title } showBackButton showShareButton onShare={handleCodeShare}/>
             
 
             {
