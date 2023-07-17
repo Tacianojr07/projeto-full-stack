@@ -8,6 +8,7 @@ import { api } from '../services/api';
 
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
+import { Guesses } from '../components/Guesses';
 import { Option } from '../components/Option';
 import { PoolCardProps } from '../components/PoolCard';
 import { PoolHeader } from '../components/PoolHeader';
@@ -88,6 +89,8 @@ export function Details() {
                          />
                          
                     </HStack>
+
+                    <Guesses poolId={poolDetails.id}/>
                 </VStack>
                 
                 
